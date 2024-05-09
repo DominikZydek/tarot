@@ -1,29 +1,30 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import TarotCard from "./components/TarotCard";
+import Buttons from "./components/Buttons";
 
 function App() {
 
-  const [cards, setCards] = useState([]);
+  const [cardOfTheDay, setCardOfTheDay] = useState({});
+
+  async function fetchCardOfTheDay() {
+    const result = await fetch("http://localhost:3001/todays-card")
+      .then((response) => response.json());
+      console.log(result);
+
+      setCardOfTheDay(result);
+  }
 
   useEffect(() => {
-    async function fetchCards() {
-      const response = await fetch("http://localhost:3001/cards");
-      const data = await response.json();
-      setCards(data);
-    }
-    fetchCards();
+    fetchCardOfTheDay();
   }, []);
 
   return (
-    <div className="App">
-      <h1 className="text-9xl">Hello, world</h1>
-      <div>
-        {cards.map(card => (
-          <div key={card.id}>
-            <h2>{card.name}</h2>
-            <img src={card.url} alt={card.name} />
-          </div>
-        ))}
-      </div>
+    <div className="App text-center h-screen bg-zinc-700 text-neutral-200 p-5">
+      <h1 className="text-5xl mb-10">Virtual Witch</h1>
+      <h2 className="text-3xl mb-2">Card of the day</h2>
+      <TarotCard card={cardOfTheDay}/>
+      <h2 className="text-3xl mb-2">Get your reading</h2>
+      <Buttons buttons={["Daily", "Weekly", "Advice"]}/>
     </div>
   );
 }
