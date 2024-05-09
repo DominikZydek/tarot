@@ -1,30 +1,20 @@
-import { useEffect, useState } from "react";
-import TarotCard from "./components/TarotCard";
-import Buttons from "./components/Buttons";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./Main";
+import Reading from "./Reading";
 
 function App() {
 
-  const [cardOfTheDay, setCardOfTheDay] = useState({});
-
-  async function fetchCardOfTheDay() {
-    const result = await fetch("http://localhost:3001/todays-card")
-      .then((response) => response.json());
-      console.log(result);
-
-      setCardOfTheDay(result);
-  }
-
-  useEffect(() => {
-    fetchCardOfTheDay();
-  }, []);
-
   return (
-    <div className="App text-center h-screen bg-zinc-700 text-neutral-200 p-5">
+    <div className="App text-center min-h-screen bg-zinc-700 text-neutral-200 p-5">
       <h1 className="text-5xl mb-10">Virtual Witch</h1>
-      <h2 className="text-3xl mb-2">Card of the day</h2>
-      <TarotCard card={cardOfTheDay}/>
-      <h2 className="text-3xl mb-2">Get your reading</h2>
-      <Buttons buttons={["Daily", "Weekly", "Advice"]}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/daily" element={<Reading type="daily" />} />
+          <Route path="/weekly" element={<Reading type="weekly" />} />
+          <Route path="/advice" element={<Reading type="advice" />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
