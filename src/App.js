@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="App text-center min-h-screen bg-zinc-700 text-neutral-200 p-5">
-      <h1 className="text-5xl mb-10">Virtual Witch</h1>
+      <h1 className="text-5xl mb-10 text-teal-700 font-semibold cursor-pointer" onClick={() => window.location.href = "/"}>Virtual Witch</h1>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />

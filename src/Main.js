@@ -20,9 +20,9 @@ function Main() {
 
     return (
         <>
-            <h2 className="text-3xl mb-2">Card of the day</h2>
+            <h2 className="text-3xl mb-10">Card of the day</h2>
             <TarotCard card={cardOfTheDay} />
-            <h2 className="text-3xl mb-2">Get your reading</h2>
+            <h2 className="text-3xl mb-10">Get your reading</h2>
             <Buttons buttons={["Daily", "Weekly", "Advice"]} />
         </>
 
